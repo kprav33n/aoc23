@@ -11,11 +11,11 @@ import (
 func main() {
 	switch os.Args[1] {
 	case "day01a":
-		inputs := io.ReadLines("inputs/day01.txt")
-		fmt.Println(day01.SumOfCalibrationValues(inputs))
+		input := io.ReadLines("inputs/day01.txt")
+		fmt.Println(day01.SumOfCalibrationValues(input))
 
 	case "day01b":
-		inputs := io.ReadLines("inputs/day01.txt")
-		fmt.Println(day01.SumOfAdjustedCalibrationValues(inputs))
+		input := io.ReadLines("inputs/day01.txt")
+		fmt.Println(day01.SumOfAdjustedCalibrationValues(input))
 	}
 }
