@@ -22,18 +22,7 @@ func SumOfCalibrationValues(inputs []string) int {
 	return sum
 }
 
-var replacementMap = map[string]int{
-	"zero":  0,
-	"one":   1,
-	"two":   2,
-	"three": 3,
-	"four":  4,
-	"five":  5,
-	"six":   6,
-	"seven": 7,
-	"eight": 8,
-	"nine":  9,
-}
+var tokens = []string{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
 
 // AdjustedCalibrationValue returns the adjusted calibration value for the given input.
 func AdjustedCalibrationValue(input string) int {
@@ -42,32 +31,26 @@ func AdjustedCalibrationValue(input string) int {
 	last := strings.LastIndexAny(input, "0123456789")
 
 	firstTokenIndex, lastTokenIndex := math.MaxInt, math.MinInt
-	firstToken, lastToken := "", ""
-	for token := range replacementMap {
+	firstValue, lastValue := 0, 0
+	for value, token := range tokens {
 		i := strings.Index(input, token)
 		if i != -1 && i < firstTokenIndex {
 			firstTokenIndex = i
-			firstToken = token
+			firstValue = value
 		}
 
 		j := strings.LastIndex(input, token)
 		if j != -1 && j > lastTokenIndex {
 			lastTokenIndex = j
-			lastToken = token
+			lastValue = value
 		}
 	}
 
-	firstValue := 0
-	if first == -1 || firstTokenIndex < first {
-		firstValue = replacementMap[firstToken]
-	} else {
+	if first != -1 && firstTokenIndex > first {
 		firstValue = int(runes[first] - '0')
 	}
 
-	lastValue := 0
-	if last == -1 || lastTokenIndex > last {
-		lastValue = replacementMap[lastToken]
-	} else {
+	if last != -1 && lastTokenIndex < last {
 		lastValue = int(runes[last] - '0')
 	}
 
