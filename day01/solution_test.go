@@ -44,3 +44,45 @@ func TestSumOfCalibrationValues(t *testing.T) {
 		})
 	}
 }
+
+func TestAdjustedCalibrationValue(t *testing.T) {
+	tests := []struct {
+		input string
+		want  int
+	}{
+		{"two1nine", 29},
+		{"eightwothree", 83},
+		{"abcone2threexyz", 13},
+		{"xtwone3four", 24},
+		{"4nineeightseven2", 42},
+		{"zoneight234", 14},
+		{"7pqrstsixteen", 76},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.input, func(t *testing.T) {
+			got := day01.AdjustedCalibrationValue(tt.input)
+			if got != tt.want {
+				t.Errorf("CalibrationValue(%q) = %d, want %d", tt.input, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSumOfAdjustedCalibrationValues(t *testing.T) {
+	tests := []struct {
+		inputs []string
+		want   int
+	}{
+		{[]string{"two1nine", "eightwothree", "abcone2threexyz", "xtwone3four", "4nineeightseven2", "zoneight234", "7pqrstsixteen"}, 281},
+	}
+
+	for _, tt := range tests {
+		t.Run("example", func(t *testing.T) {
+			got := day01.SumOfAdjustedCalibrationValues(tt.inputs)
+			if got != tt.want {
+				t.Errorf("SumOfCalibrationValues(%q) = %d, want %d", tt.inputs, got, tt.want)
+			}
+		})
+	}
+}

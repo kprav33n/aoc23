@@ -13,5 +13,9 @@ func main() {
 	case "day01a":
 		inputs := io.ReadLines("inputs/day01.txt")
 		fmt.Println(day01.SumOfCalibrationValues(inputs))
+
+	case "day01b":
+		inputs := io.ReadLines("inputs/day01.txt")
+		fmt.Println(day01.SumOfAdjustedCalibrationValues(inputs))
 	}
 }
