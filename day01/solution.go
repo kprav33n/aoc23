@@ -8,21 +8,8 @@ import (
 // CalibrationValue returns the calibration value for the given input.
 func CalibrationValue(input string) int {
 	runes := []rune(input)
-	var first, last int
-	for i := 0; i < len(runes); i++ {
-		if runes[i] >= '0' && runes[i] <= '9' {
-			first = i
-			break
-		}
-	}
-
-	for i := len(runes) - 1; i >= 0; i-- {
-		if runes[i] >= '0' && runes[i] <= '9' {
-			last = i
-			break
-		}
-	}
-
+	first := strings.IndexAny(input, "0123456789")
+	last := strings.LastIndexAny(input, "0123456789")
 	return int((runes[first]-'0')*10 + runes[last] - '0')
 }
 
@@ -51,51 +38,34 @@ var replacementMap = map[string]int{
 // AdjustedCalibrationValue returns the adjusted calibration value for the given input.
 func AdjustedCalibrationValue(input string) int {
 	runes := []rune(input)
-	first := math.MaxInt
-	for i := 0; i < len(runes); i++ {
-		if runes[i] >= '0' && runes[i] <= '9' {
-			first = i
-			break
-		}
-	}
+	first := strings.IndexAny(input, "0123456789")
+	last := strings.LastIndexAny(input, "0123456789")
 
-	firstTokenIndex := math.MaxInt
-	firstToken := ""
+	firstTokenIndex, lastTokenIndex := math.MaxInt, math.MinInt
+	firstToken, lastToken := "", ""
 	for token := range replacementMap {
 		i := strings.Index(input, token)
 		if i != -1 && i < firstTokenIndex {
 			firstTokenIndex = i
 			firstToken = token
 		}
+
+		j := strings.LastIndex(input, token)
+		if j != -1 && j > lastTokenIndex {
+			lastTokenIndex = j
+			lastToken = token
+		}
 	}
 
 	firstValue := 0
-	if firstTokenIndex < first {
+	if first == -1 || firstTokenIndex < first {
 		firstValue = replacementMap[firstToken]
 	} else {
 		firstValue = int(runes[first] - '0')
 	}
 
-	last := math.MinInt
-	for i := len(runes) - 1; i >= 0; i-- {
-		if runes[i] >= '0' && runes[i] <= '9' {
-			last = i
-			break
-		}
-	}
-
-	lastTokenIndex := math.MinInt
-	lastToken := ""
-	for token := range replacementMap {
-		i := strings.LastIndex(input, token)
-		if i != -1 && i > lastTokenIndex {
-			lastTokenIndex = i
-			lastToken = token
-		}
-	}
-
 	lastValue := 0
-	if lastTokenIndex > last {
+	if last == -1 || lastTokenIndex > last {
 		lastValue = replacementMap[lastToken]
 	} else {
 		lastValue = int(runes[last] - '0')
