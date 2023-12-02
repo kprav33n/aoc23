@@ -75,3 +75,37 @@ func SumOfPossibleGameIDs(input []string, constraint Combination) int {
 	}
 	return sum
 }
+
+// SmallestConstraint returns the smallest constraint for a given slice of
+// combinations to be possible.
+func SmallestConstraint(combinations []Combination) Combination {
+	var result Combination
+	for _, c := range combinations {
+		if c.Red > result.Red {
+			result.Red = c.Red
+		}
+		if c.Green > result.Green {
+			result.Green = c.Green
+		}
+		if c.Blue > result.Blue {
+			result.Blue = c.Blue
+		}
+	}
+	return result
+}
+
+// PowerOfCombination returns the power of a combination.
+func PowerOfCombination(combination Combination) int {
+	return combination.Red * combination.Green * combination.Blue
+}
+
+// SumOfPowers returns the sum of power of sets of constraints required to
+// satisfy each game.
+func SumOfPowers(input []string) int {
+	var sum int
+	for _, line := range input {
+		_, combinations := ParseGame(line)
+		sum += PowerOfCombination(SmallestConstraint(combinations))
+	}
+	return sum
+}

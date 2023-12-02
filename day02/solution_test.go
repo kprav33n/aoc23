@@ -98,3 +98,62 @@ func TestSumOfPossibleGameIDs(t *testing.T) {
 		t.Errorf("SumOfPossibleGameIDs(%q, %v) = %d, want %d", input, constraint, got, want)
 	}
 }
+
+func TestSmallestConstraint(t *testing.T) {
+	tests := []struct {
+		input string
+		want  day02.Combination
+	}{
+		{"Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green", day02.Combination{Red: 4, Green: 2, Blue: 6}},
+		{"Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue", day02.Combination{Red: 1, Green: 3, Blue: 4}},
+		{"Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red", day02.Combination{Red: 20, Green: 13, Blue: 6}},
+		{"Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red", day02.Combination{Red: 14, Green: 3, Blue: 15}},
+		{"Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", day02.Combination{Red: 6, Green: 3, Blue: 2}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.input, func(t *testing.T) {
+			_, combinations := day02.ParseGame(tt.input)
+			got := day02.SmallestConstraint(combinations)
+			if got != tt.want {
+				t.Errorf("SmallestConstraint(%q) = %v, want %v", tt.input, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestPowerOfCombination(t *testing.T) {
+	tests := []struct {
+		input day02.Combination
+		want  int
+	}{
+		{day02.Combination{Red: 0, Green: 0, Blue: 0}, 0},
+		{day02.Combination{Red: 1, Green: 1, Blue: 1}, 1},
+		{day02.Combination{Red: 2, Green: 2, Blue: 2}, 8},
+		{day02.Combination{Red: 1, Green: 2, Blue: 3}, 6},
+	}
+
+	for _, tt := range tests {
+		t.Run(fmt.Sprintf("%v", tt.input), func(t *testing.T) {
+			got := day02.PowerOfCombination(tt.input)
+			if got != tt.want {
+				t.Errorf("PowerOfCombination(%v) = %d, want %d", tt.input, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSumOfPowerOfCombinations(t *testing.T) {
+	input := []string{
+		"Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
+		"Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue",
+		"Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red",
+		"Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red",
+		"Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
+	}
+	want := 2286
+	got := day02.SumOfPowers(input)
+	if got != want {
+		t.Errorf("SumOfPowers(%q) = %d, want %d", input, got, want)
+	}
+}

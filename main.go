@@ -23,5 +23,9 @@ func main() {
 		input := io.ReadLines("inputs/day02.txt")
 		fmt.Println(day02.SumOfPossibleGameIDs(input,
 			day02.Combination{Red: 12, Green: 13, Blue: 14}))
+
+	case "day02b":
+		input := io.ReadLines("inputs/day02.txt")
+		fmt.Println(day02.SumOfPowers(input))
 	}
 }
