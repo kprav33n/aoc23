@@ -6,6 +6,7 @@ import (
 
 	"infzen.com/aoc23/day01"
 	"infzen.com/aoc23/day02"
+	"infzen.com/aoc23/day03"
 	"infzen.com/aoc23/io"
 )
 
@@ -27,5 +28,13 @@ func main() {
 	case "day02b":
 		input := io.ReadLines("inputs/day02.txt")
 		fmt.Println(day02.SumOfPowers(input))
+
+	case "day03a":
+		input := io.ReadLines("inputs/day03.txt")
+		schematic := [][]rune{}
+		for _, line := range input {
+			schematic = append(schematic, []rune(line))
+		}
+		fmt.Println(day03.SumOfPartNumbers(schematic))
 	}
 }
