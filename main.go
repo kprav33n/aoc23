@@ -36,5 +36,13 @@ func main() {
 			schematic = append(schematic, []rune(line))
 		}
 		fmt.Println(day03.SumOfPartNumbers(schematic))
+
+	case "day03b":
+		input := io.ReadLines("inputs/day03.txt")
+		schematic := [][]rune{}
+		for _, line := range input {
+			schematic = append(schematic, []rune(line))
+		}
+		fmt.Println(day03.SumOfGearRatios(schematic))
 	}
 }
