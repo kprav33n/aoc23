@@ -49,5 +49,9 @@ func main() {
 	case "day04a":
 		input := io.ReadLines("inputs/day04.txt")
 		fmt.Println(day04.TotalPoints(input))
+
+	case "day04b":
+		input := io.ReadLines("inputs/day04.txt")
+		fmt.Println(day04.TotalCards(input))
 	}
 }
