@@ -7,6 +7,7 @@ import (
 	"infzen.com/aoc23/day01"
 	"infzen.com/aoc23/day02"
 	"infzen.com/aoc23/day03"
+	"infzen.com/aoc23/day04"
 	"infzen.com/aoc23/io"
 )
 
@@ -44,5 +45,9 @@ func main() {
 			schematic = append(schematic, []rune(line))
 		}
 		fmt.Println(day03.SumOfGearRatios(schematic))
+
+	case "day04a":
+		input := io.ReadLines("inputs/day04.txt")
+		fmt.Println(day04.TotalPoints(input))
 	}
 }
