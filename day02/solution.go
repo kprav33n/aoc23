@@ -1,9 +1,9 @@
 package day02
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
+
+	"infzen.com/aoc23/strconv"
 )
 
 // Combination represents a combination of red, green and blue cubes.
@@ -19,10 +19,7 @@ func NewCombination(input string) Combination {
 	token := strings.Split(input, ", ")
 	for _, t := range token {
 		parts := strings.Split(t, " ")
-		value, err := strconv.Atoi(parts[0])
-		if err != nil {
-			panic(fmt.Sprintf("invalid input: %q, failed to parse %s", input, parts[0]))
-		}
+		value := strconv.MustAtoi(parts[0])
 		switch parts[1] {
 		case "red":
 			result.Red = value
@@ -46,10 +43,7 @@ func IsPossibleCombination(combination Combination, constraint Combination) bool
 func ParseGame(input string) (int, []Combination) {
 	tokens := strings.Split(input, ": ")
 
-	gameID, err := strconv.Atoi(tokens[0][5:])
-	if err != nil {
-		panic(fmt.Sprintf("invalid input: %q, failed to parse %s", input, tokens[0][5:]))
-	}
+	gameID := strconv.MustAtoi(tokens[0][5:])
 	var combinations []Combination
 	for _, c := range strings.Split(tokens[1], "; ") {
 		combinations = append(combinations, NewCombination(c))

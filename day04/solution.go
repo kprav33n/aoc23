@@ -1,9 +1,9 @@
 package day04
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
+
+	"infzen.com/aoc23/strconv"
 )
 
 // Card represents a scratchcard.
@@ -23,10 +23,10 @@ func NewCard(input string) *Card {
 	winningNumbers := strings.Fields(parts[0])
 	numbers := strings.Fields(parts[1])
 	for _, number := range winningNumbers {
-		card.WinningNumbers[toInt(number)] = struct{}{}
+		card.WinningNumbers[strconv.MustAtoi(number)] = struct{}{}
 	}
 	for _, number := range numbers {
-		card.Numbers = append(card.Numbers, toInt(number))
+		card.Numbers = append(card.Numbers, strconv.MustAtoi(number))
 	}
 	return card
 }
@@ -88,13 +88,4 @@ func TotalCards(input []string) int {
 		totalCards += numInstances[i]
 	}
 	return totalCards
-}
-
-// toInt converts a string to an integer.
-func toInt(input string) int {
-	n, err := strconv.Atoi(input)
-	if err != nil {
-		panic(fmt.Sprintf("could not convert %s to int", input))
-	}
-	return n
 }

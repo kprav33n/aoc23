@@ -1,11 +1,11 @@
 package day05
 
 import (
-	"fmt"
 	"math"
 	"slices"
-	"strconv"
 	"strings"
+
+	"infzen.com/aoc23/strconv"
 )
 
 type MapEntry struct {
@@ -23,9 +23,9 @@ func NewMap(input []string) *Map {
 	for _, line := range input {
 		tokens := strings.Fields(line)
 		entry := MapEntry{
-			SourceStart:      toInt(tokens[1]),
-			DestinationStart: toInt(tokens[0]),
-			Length:           toInt(tokens[2]),
+			SourceStart:      strconv.MustAtoi(tokens[1]),
+			DestinationStart: strconv.MustAtoi(tokens[0]),
+			Length:           strconv.MustAtoi(tokens[2]),
 		}
 		entries = append(entries, entry)
 	}
@@ -67,7 +67,7 @@ func LowestLocation(input []string) int {
 	fields := strings.Fields(tokens[1])
 	seedNumbers := []int{}
 	for _, field := range fields {
-		seedNumbers = append(seedNumbers, toInt(field))
+		seedNumbers = append(seedNumbers, strconv.MustAtoi(field))
 	}
 
 	result := math.MaxInt
@@ -108,8 +108,8 @@ func LowestLocationForRange(input []string) int {
 	fields := strings.Fields(tokens[1])
 	result := math.MaxInt
 	for i := 0; i < len(fields); i += 2 {
-		start := toInt(fields[i])
-		length := toInt(fields[i+1])
+		start := strconv.MustAtoi(fields[i])
+		length := strconv.MustAtoi(fields[i+1])
 		for j := start; j < start+length; j++ {
 			source, destination := j, math.MaxInt
 			for _, m := range maps {
@@ -123,13 +123,4 @@ func LowestLocationForRange(input []string) int {
 	}
 
 	return result
-}
-
-// toInt converts a string to an integer.
-func toInt(input string) int {
-	n, err := strconv.Atoi(input)
-	if err != nil {
-		panic(fmt.Sprintf("could not convert %s to int", input))
-	}
-	return n
 }
