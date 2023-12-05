@@ -58,5 +58,9 @@ func main() {
 	case "day05a":
 		input := io.ReadLines("inputs/day05.txt")
 		fmt.Println(day05.LowestLocation(input))
+
+	case "day05b":
+		input := io.ReadLines("inputs/day05.txt")
+		fmt.Println(day05.LowestLocationForRange(input))
 	}
 }
