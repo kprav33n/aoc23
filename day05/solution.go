@@ -4,20 +4,24 @@ import (
 	"math"
 	"slices"
 	"strings"
+	"sync"
 
 	"infzen.com/aoc23/strconv"
 )
 
+// MapEntry represents a map entry.
 type MapEntry struct {
 	SourceStart      int
 	DestinationStart int
 	Length           int
 }
 
+// Map represents a source to destination map.
 type Map struct {
 	Entries []MapEntry
 }
 
+// NewMap creates a new map from the given input.
 func NewMap(input []string) *Map {
 	entries := []MapEntry{}
 	for _, line := range input {
@@ -29,12 +33,19 @@ func NewMap(input []string) *Map {
 		}
 		entries = append(entries, entry)
 	}
-	slices.SortFunc(entries, func(x, y MapEntry) int {
-		return x.SourceStart - y.SourceStart
-	})
-	return &Map{Entries: entries}
+	m := &Map{Entries: entries}
+	m.SortEntries()
+	return m
 }
 
+// SortEntries sorts the map entries by source start.
+func (m *Map) SortEntries() {
+	slices.SortFunc(m.Entries, func(x, y MapEntry) int {
+		return x.SourceStart - y.SourceStart
+	})
+}
+
+// Destination returns the destination for the given source.
 func (m *Map) Destination(source int) int {
 	for _, entry := range m.Entries {
 		if source >= entry.SourceStart && source < entry.SourceStart+entry.Length {
@@ -104,12 +115,10 @@ func LowestLocationForRange(input []string) int {
 		NewMap(input[separators[6]+2:]),
 	}
 
-	tokens := strings.Split(input[0], ": ")
-	fields := strings.Fields(tokens[1])
-	result := math.MaxInt
-	for i := 0; i < len(fields); i += 2 {
-		start := strconv.MustAtoi(fields[i])
-		length := strconv.MustAtoi(fields[i+1])
+	var wg sync.WaitGroup
+	lowestLocation := func(start, length int, resultCh chan int) {
+		defer wg.Done()
+		result := math.MaxInt
 		for j := start; j < start+length; j++ {
 			source, destination := j, math.MaxInt
 			for _, m := range maps {
@@ -120,7 +129,26 @@ func LowestLocationForRange(input []string) int {
 				result = destination
 			}
 		}
+		resultCh <- result
 	}
 
+	tokens := strings.Split(input[0], ": ")
+	fields := strings.Fields(tokens[1])
+	resultCh := make(chan int, len(fields)/2)
+	wg.Add(len(fields) / 2)
+	for i := 0; i < len(fields); i += 2 {
+		start := strconv.MustAtoi(fields[i])
+		length := strconv.MustAtoi(fields[i+1])
+		go lowestLocation(start, length, resultCh)
+	}
+	wg.Wait()
+	close(resultCh)
+
+	result := math.MaxInt
+	for r := range resultCh {
+		if r < result {
+			result = r
+		}
+	}
 	return result
 }
