@@ -41,3 +41,23 @@ func ProductOfNumberOfWays(input []string) int {
 
 	return result
 }
+
+// NumberOfWays returns the product of the number of ways to win the races.
+func NumberOfWays(input []string) int {
+	tokens := strings.Split(input[0], ":")
+	fields := strings.Fields(tokens[1])
+	time := strconv.MustAtoi(strings.Join(fields, ""))
+
+	tokens = strings.Split(input[1], ":")
+	fields = strings.Fields(tokens[1])
+	distance := strconv.MustAtoi(strings.Join(fields, ""))
+
+	numWays := 0
+	for j := 0; j <= time; j++ {
+		if distanceTravelled(time, j) > distance {
+			numWays++
+		}
+	}
+
+	return numWays
+}

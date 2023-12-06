@@ -17,3 +17,15 @@ func TestProductOfNumberOfWays(t *testing.T) {
 		t.Errorf("ProductOfNumberOfWays(%v) = %v; expected %v", input, actual, expected)
 	}
 }
+
+func TestNumberOfWays(t *testing.T) {
+	input := []string{
+		"Time:      7  15   30",
+		"Distance:  9  40  200",
+	}
+	actual := day06.NumberOfWays(input)
+	expected := 71503
+	if actual != expected {
+		t.Errorf("ProductOfNumberOfWays(%v) = %v; expected %v", input, actual, expected)
+	}
+}

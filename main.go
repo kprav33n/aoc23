@@ -67,5 +67,9 @@ func main() {
 	case "day06a":
 		input := io.ReadLines("inputs/day06.txt")
 		fmt.Println(day06.ProductOfNumberOfWays(input))
+
+	case "day06b":
+		input := io.ReadLines("inputs/day06.txt")
+		fmt.Println(day06.NumberOfWays(input))
 	}
 }
