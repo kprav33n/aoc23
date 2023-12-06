@@ -1,9 +1,9 @@
 package day03
 
 import (
-	"fmt"
-	"strconv"
 	"unicode"
+
+	"infzen.com/aoc23/strconv"
 )
 
 // NumberLocation represents the location of a number in the schematic.
@@ -74,11 +74,7 @@ func IsPartNumber(schematic [][]rune, location NumberLocation) bool {
 // ExtractNumber returns the number at the given location.
 func ExtractNumber(schematic [][]rune, location NumberLocation) int {
 	s := string(schematic[location.Row][location.StartColumn : location.EndColumn+1])
-	value, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		panic(fmt.Sprintf("failed to parse number at %d, %d-%d: %s", location.Row, location.StartColumn, location.EndColumn, s))
-	}
-	return int(value)
+	return strconv.MustAtoi(s)
 }
 
 // SumOfPartNumbers returns the sum of all part numbers in the schematic.
