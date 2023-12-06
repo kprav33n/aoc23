@@ -9,6 +9,7 @@ import (
 	"infzen.com/aoc23/day03"
 	"infzen.com/aoc23/day04"
 	"infzen.com/aoc23/day05"
+	"infzen.com/aoc23/day06"
 	"infzen.com/aoc23/io"
 )
 
@@ -62,5 +63,9 @@ func main() {
 	case "day05b":
 		input := io.ReadLines("inputs/day05.txt")
 		fmt.Println(day05.LowestLocationForRange(input))
+
+	case "day06a":
+		input := io.ReadLines("inputs/day06.txt")
+		fmt.Println(day06.ProductOfNumberOfWays(input))
 	}
 }
