@@ -3,7 +3,7 @@ package day04
 import (
 	"strings"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // Card represents a scratchcard.

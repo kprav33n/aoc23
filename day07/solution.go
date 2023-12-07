@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 var cardStrengths = map[rune]int{

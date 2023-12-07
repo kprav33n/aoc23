@@ -3,7 +3,7 @@ package day04_test
 import (
 	"testing"
 
-	"infzen.com/aoc23/day04"
+	"github.com/kprav33n/aoc23/day04"
 )
 
 func TestTotalPoints(t *testing.T) {

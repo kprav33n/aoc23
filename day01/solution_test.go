@@ -3,7 +3,7 @@ package day01_test
 import (
 	"testing"
 
-	"infzen.com/aoc23/day01"
+	"github.com/kprav33n/aoc23/day01"
 )
 
 func TestCalibrationValue(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"infzen.com/aoc23/day05"
+	"github.com/kprav33n/aoc23/day05"
 )
 
 func TestDestination(t *testing.T) {

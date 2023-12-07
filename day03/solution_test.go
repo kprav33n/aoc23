@@ -3,7 +3,7 @@ package day03_test
 import (
 	"testing"
 
-	"infzen.com/aoc23/day03"
+	"github.com/kprav33n/aoc23/day03"
 )
 
 func TestSumOfPartNumbers(t *testing.T) {

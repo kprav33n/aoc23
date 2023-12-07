@@ -3,7 +3,7 @@ package day07_test
 import (
 	"testing"
 
-	"infzen.com/aoc23/day07"
+	"github.com/kprav33n/aoc23/day07"
 )
 
 func TestTotalWinnings(t *testing.T) {

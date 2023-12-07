@@ -3,7 +3,7 @@ package day06
 import (
 	"strings"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // distanceTravelled returns the distance travelled in the given time when the

@@ -3,7 +3,7 @@ package day06_test
 import (
 	"testing"
 
-	"infzen.com/aoc23/day06"
+	"github.com/kprav33n/aoc23/day06"
 )
 
 func TestProductOfNumberOfWays(t *testing.T) {

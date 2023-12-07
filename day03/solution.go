@@ -3,7 +3,7 @@ package day03
 import (
 	"unicode"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // NumberLocation represents the location of a number in the schematic.

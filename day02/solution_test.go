@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"infzen.com/aoc23/day02"
+	"github.com/kprav33n/aoc23/day02"
 )
 
 func TestNewCombination(t *testing.T) {

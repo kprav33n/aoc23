@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"os"
 
-	"infzen.com/aoc23/day01"
-	"infzen.com/aoc23/day02"
-	"infzen.com/aoc23/day03"
-	"infzen.com/aoc23/day04"
-	"infzen.com/aoc23/day05"
-	"infzen.com/aoc23/day06"
-	"infzen.com/aoc23/day07"
-	"infzen.com/aoc23/io"
+	"github.com/kprav33n/aoc23/day01"
+	"github.com/kprav33n/aoc23/day02"
+	"github.com/kprav33n/aoc23/day03"
+	"github.com/kprav33n/aoc23/day04"
+	"github.com/kprav33n/aoc23/day05"
+	"github.com/kprav33n/aoc23/day06"
+	"github.com/kprav33n/aoc23/day07"
+	"github.com/kprav33n/aoc23/io"
 )
 
 func main() {

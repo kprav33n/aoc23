@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // MapEntry represents a map entry.

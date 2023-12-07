@@ -3,7 +3,7 @@ package day02
 import (
 	"strings"
 
-	"infzen.com/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // Combination represents a combination of red, green and blue cubes.
