@@ -10,6 +10,7 @@ import (
 	"infzen.com/aoc23/day04"
 	"infzen.com/aoc23/day05"
 	"infzen.com/aoc23/day06"
+	"infzen.com/aoc23/day07"
 	"infzen.com/aoc23/io"
 )
 
@@ -71,5 +72,9 @@ func main() {
 	case "day06b":
 		input := io.ReadLines("inputs/day06.txt")
 		fmt.Println(day06.NumberOfWays(input))
+
+	case "day07a":
+		input := io.ReadLines("inputs/day07.txt")
+		fmt.Println(day07.TotalWinnings(input))
 	}
 }
