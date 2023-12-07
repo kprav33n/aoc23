@@ -76,5 +76,9 @@ func main() {
 	case "day07a":
 		input := io.ReadLines("inputs/day07.txt")
 		fmt.Println(day07.TotalWinnings(input))
+
+	case "day07b":
+		input := io.ReadLines("inputs/day07.txt")
+		fmt.Println(day07.TotalWinningsWithJoker(input))
 	}
 }
