@@ -15,79 +15,88 @@ import (
 	"github.com/kprav33n/aoc23/io"
 )
 
-func main() {
-	switch os.Args[1] {
-	case "day01a":
+var solutions = map[string]func(){
+	"day01a": func() {
 		input := io.ReadLines("inputs/day01.txt")
 		fmt.Println(day01.SumOfCalibrationValues(input))
+	},
 
-	case "day01b":
+	"day01b": func() {
 		input := io.ReadLines("inputs/day01.txt")
 		fmt.Println(day01.SumOfAdjustedCalibrationValues(input))
-
-	case "day02a":
+	},
+	"day02a": func() {
 		input := io.ReadLines("inputs/day02.txt")
 		fmt.Println(day02.SumOfPossibleGameIDs(input,
 			day02.Combination{Red: 12, Green: 13, Blue: 14}))
-
-	case "day02b":
+	},
+	"day02b": func() {
 		input := io.ReadLines("inputs/day02.txt")
 		fmt.Println(day02.SumOfPowers(input))
-
-	case "day03a":
+	},
+	"day03a": func() {
 		input := io.ReadLines("inputs/day03.txt")
 		schematic := [][]rune{}
 		for _, line := range input {
 			schematic = append(schematic, []rune(line))
 		}
 		fmt.Println(day03.SumOfPartNumbers(schematic))
-
-	case "day03b":
+	},
+	"day03b": func() {
 		input := io.ReadLines("inputs/day03.txt")
 		schematic := [][]rune{}
 		for _, line := range input {
 			schematic = append(schematic, []rune(line))
 		}
 		fmt.Println(day03.SumOfGearRatios(schematic))
-
-	case "day04a":
+	},
+	"day04a": func() {
 		input := io.ReadLines("inputs/day04.txt")
 		fmt.Println(day04.TotalPoints(input))
-
-	case "day04b":
+	},
+	"day04b": func() {
 		input := io.ReadLines("inputs/day04.txt")
 		fmt.Println(day04.TotalCards(input))
-
-	case "day05a":
+	},
+	"day05a": func() {
 		input := io.ReadLines("inputs/day05.txt")
 		fmt.Println(day05.LowestLocation(input))
-
-	case "day05b":
+	},
+	"day05b": func() {
 		input := io.ReadLines("inputs/day05.txt")
 		fmt.Println(day05.LowestLocationForRange(input))
-
-	case "day06a":
+	},
+	"day06a": func() {
 		input := io.ReadLines("inputs/day06.txt")
 		fmt.Println(day06.ProductOfNumberOfWays(input))
-
-	case "day06b":
+	},
+	"day06b": func() {
 		input := io.ReadLines("inputs/day06.txt")
 		fmt.Println(day06.NumberOfWays(input))
-
-	case "day07a":
+	},
+	"day07a": func() {
 		input := io.ReadLines("inputs/day07.txt")
 		fmt.Println(day07.TotalWinnings(input))
-
-	case "day07b":
+	},
+	"day07b": func() {
 		input := io.ReadLines("inputs/day07.txt")
 		fmt.Println(day07.TotalWinningsWithJoker(input))
-
-	case "day08a":
+	},
+	"day08a": func() {
 		input := io.ReadLines("inputs/day08.txt")
 		fmt.Println(day08.NumStepsToDestination(input))
-
-	case "day08b":
+	},
+	"day08b": func() {
 		input := io.ReadLines("inputs/day08.txt")
 		fmt.Println(day08.NumStepsToDestinationForGhost(input))
+	},
+}
+
+func main() {
+	solution, ok := solutions[os.Args[1]]
+	if !ok {
+		fmt.Println("No solution found for", os.Args[1])
+		os.Exit(1)
 	}
+	solution()
 }
