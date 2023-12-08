@@ -11,6 +11,7 @@ import (
 	"github.com/kprav33n/aoc23/day05"
 	"github.com/kprav33n/aoc23/day06"
 	"github.com/kprav33n/aoc23/day07"
+	"github.com/kprav33n/aoc23/day08"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -80,5 +81,9 @@ func main() {
 	case "day07b":
 		input := io.ReadLines("inputs/day07.txt")
 		fmt.Println(day07.TotalWinningsWithJoker(input))
+
+	case "day08a":
+		input := io.ReadLines("inputs/day08.txt")
+		fmt.Println(day08.NumStepsToDestination(input))
 	}
 }
