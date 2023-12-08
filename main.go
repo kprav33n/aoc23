@@ -85,5 +85,9 @@ func main() {
 	case "day08a":
 		input := io.ReadLines("inputs/day08.txt")
 		fmt.Println(day08.NumStepsToDestination(input))
+
+	case "day08b":
+		input := io.ReadLines("inputs/day08.txt")
+		fmt.Println(day08.NumStepsToDestinationForGhost(input))
 	}
 }
