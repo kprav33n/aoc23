@@ -1,7 +1,5 @@
 package day08
 
-import "fmt"
-
 // Node represents a node in a map.
 type Node struct {
 	Label string
@@ -42,10 +40,8 @@ func (m *Map) NumStepsToPredicate(start string, directions []rune, predicate fun
 	for node := m.Nodes[start]; predicate(node) == false; {
 		if directions[i] == 'L' {
 			node = m.Nodes[node.Left]
-		} else if directions[i] == 'R' {
-			node = m.Nodes[node.Right]
 		} else {
-			panic(fmt.Sprintf("invalid direction: %c", directions[i]))
+			node = m.Nodes[node.Right]
 		}
 		result += 1
 		i = (i + 1) % len(directions)
