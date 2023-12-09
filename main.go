@@ -93,7 +93,13 @@ var solutions = map[string]func(){
 	},
 	"day09a": func() {
 		input := io.ReadLines("inputs/day09.txt")
-		fmt.Println(day09.SumOfExtrapolatedValues(input))
+		_, result := day09.SumOfExtrapolatedValues(input)
+		fmt.Println(result)
+	},
+	"day09b": func() {
+		input := io.ReadLines("inputs/day09.txt")
+		result, _ := day09.SumOfExtrapolatedValues(input)
+		fmt.Println(result)
 	},
 }
 
