@@ -12,6 +12,7 @@ import (
 	"github.com/kprav33n/aoc23/day06"
 	"github.com/kprav33n/aoc23/day07"
 	"github.com/kprav33n/aoc23/day08"
+	"github.com/kprav33n/aoc23/day09"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -89,6 +90,10 @@ var solutions = map[string]func(){
 	"day08b": func() {
 		input := io.ReadLines("inputs/day08.txt")
 		fmt.Println(day08.NumStepsToDestinationForGhost(input))
+	},
+	"day09a": func() {
+		input := io.ReadLines("inputs/day09.txt")
+		fmt.Println(day09.SumOfExtrapolatedValues(input))
 	},
 }
 
