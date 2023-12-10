@@ -13,6 +13,7 @@ import (
 	"github.com/kprav33n/aoc23/day07"
 	"github.com/kprav33n/aoc23/day08"
 	"github.com/kprav33n/aoc23/day09"
+	"github.com/kprav33n/aoc23/day10"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -100,6 +101,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day09.txt")
 		result, _ := day09.SumOfExtrapolatedValues(input)
 		fmt.Println(result)
+	},
+	"day10a": func() {
+		input := io.ReadLines("inputs/day10.txt")
+		fmt.Println(day10.StepsToFarthestPoint(input))
 	},
 }
 
