@@ -63,6 +63,16 @@ func NewSketch(input []string) Sketch {
 	return sketch
 }
 
+// StartPipe returns the pipe at start.
+func PipeForDiff(x, y Point) Pipe {
+	for _, pipe := range pipeMapping {
+		if (pipe.From == x && pipe.To == y) || (pipe.From == y && pipe.To == x) {
+			return pipe
+		}
+	}
+	return pipeMapping['.']
+}
+
 // ConnectedToStart returns the pipes that are connected to start.
 func (sketch *Sketch) ConnectedToStart() ([]Point, []Point) {
 	candidates := []Point{}
@@ -87,6 +97,10 @@ func (sketch *Sketch) ConnectedToStart() ([]Point, []Point) {
 			diffs = append(diffs, diff)
 		}
 	}
+
+	startPipe := PipeForDiff(candidates[0].Difference(sketch.Start), candidates[1].Difference(sketch.Start))
+	sketch.Pipes[sketch.Start.Y][sketch.Start.X] = startPipe
+
 	return candidates, diffs
 }
 
@@ -105,10 +119,53 @@ func (sketch *Sketch) BackToStart(p Point, diff Point, acc int) int {
 	return sketch.BackToStart(next, p.Difference(next), acc+1)
 }
 
+// PathToStart returns the path back to start.
+func (sketch *Sketch) PathToStart(p Point, diff Point, acc []Point) []Point {
+	if p == sketch.Start {
+		return acc
+	}
+	pipe := sketch.Pipes[p.Y][p.X]
+	var next Point
+	if diff == pipe.From {
+		next = p.Add(pipe.To)
+	} else {
+		next = p.Add(pipe.From)
+	}
+	return sketch.PathToStart(next, p.Difference(next), append(acc, next))
+}
+
 // StepsToFarthestPoint returns the number of steps to the farthest point.
 func StepsToFarthestPoint(input []string) int {
 	sketch := NewSketch(input)
 	neighbors, diffs := sketch.ConnectedToStart()
 	n := sketch.BackToStart(neighbors[0], diffs[0], 1)
 	return n / 2
+}
+
+// NumEnclosedTiles returns the number of enclosed tiles.
+func NumEnclosedTiles(input []string) int {
+	sketch := NewSketch(input)
+	neighbors, diffs := sketch.ConnectedToStart()
+	acc := []Point{neighbors[0]}
+	path := sketch.PathToStart(neighbors[0], diffs[0], acc)
+	pathMap := make(map[Point]struct{})
+	for _, p := range path {
+		pathMap[p] = struct{}{}
+	}
+
+	enclosed := 0
+	isInside := false
+	for y, row := range sketch.Pipes {
+		for x, pipe := range row {
+			if _, ok := pathMap[Point{x, y}]; ok {
+				if pipe.From.Y == -1 || pipe.To.Y == -1 {
+					isInside = !isInside
+				}
+			} else if isInside {
+				enclosed++
+			}
+		}
+	}
+
+	return enclosed
 }

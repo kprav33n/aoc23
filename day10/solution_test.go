@@ -1,6 +1,7 @@
 package day10_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/kprav33n/aoc23/day10"
@@ -18,5 +19,57 @@ func TestStepsToFarthestPoint(t *testing.T) {
 	got := day10.StepsToFarthestPoint(input)
 	if got != want {
 		t.Errorf("StepsToFarthestPoint(%v) = %v; want %v", input, got, want)
+	}
+}
+
+func TestNumEnclosedTiles(t *testing.T) {
+	tests := []struct {
+		input []string
+		want  int
+	}{
+		{[]string{
+			"...........",
+			".S-------7.",
+			".|F-----7|.",
+			".||.....||.",
+			".||.....||.",
+			".|L-7.F-J|.",
+			".|..|.|..|.",
+			".L--J.L--J.",
+			"...........",
+		}, 4},
+		{[]string{
+			".F----7F7F7F7F-7....",
+			".|F--7||||||||FJ....",
+			".||.FJ||||||||L7....",
+			"FJL7L7LJLJ||LJ.L-7..",
+			"L--J.L7...LJS7F-7L7.",
+			"....F-J..F7FJ|L7L7L7",
+			"....L7.F7||L7|.L7L7|",
+			".....|FJLJ|FJ|F7|.LJ",
+			"....FJL-7.||.||||...",
+			"....L---J.LJ.LJLJ...",
+		}, 8},
+		{[]string{
+			"FF7FSF7F7F7F7F7F---7",
+			"L|LJ||||||||||||F--J",
+			"FL-7LJLJ||||||LJL-77",
+			"F--JF--7||LJLJ7F7FJ-",
+			"L---JF-JLJ.||-FJLJJ7",
+			"|F|F-JF---7F7-L7L|7|",
+			"|FFJF7L7F-JF7|JL---7",
+			"7-L-JL7||F7|L7F-7F7|",
+			"L.L7LFJ|||||FJL7||LJ",
+			"L7JLJL-JLJLJL--JLJ.L",
+		}, 10},
+	}
+	for i, test := range tests {
+		testCase := fmt.Sprintf("case#%d", i)
+		t.Run(testCase, func(t *testing.T) {
+			got := day10.NumEnclosedTiles(test.input)
+			if got != test.want {
+				t.Errorf("NumEnclosedTiles(%v) = %v; want %v", testCase, got, test.want)
+			}
+		})
 	}
 }

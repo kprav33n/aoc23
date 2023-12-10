@@ -106,6 +106,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day10.txt")
 		fmt.Println(day10.StepsToFarthestPoint(input))
 	},
+	"day10b": func() {
+		input := io.ReadLines("inputs/day10.txt")
+		fmt.Println(day10.NumEnclosedTiles(input))
+	},
 }
 
 func main() {
