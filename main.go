@@ -14,6 +14,7 @@ import (
 	"github.com/kprav33n/aoc23/day08"
 	"github.com/kprav33n/aoc23/day09"
 	"github.com/kprav33n/aoc23/day10"
+	"github.com/kprav33n/aoc23/day11"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -109,6 +110,10 @@ var solutions = map[string]func(){
 	"day10b": func() {
 		input := io.ReadLines("inputs/day10.txt")
 		fmt.Println(day10.NumEnclosedTiles(input))
+	},
+	"day11a": func() {
+		input := io.ReadLines("inputs/day11.txt")
+		fmt.Println(day11.SumOfShortestPaths(input))
 	},
 }
 
