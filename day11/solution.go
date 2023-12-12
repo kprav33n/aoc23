@@ -16,7 +16,7 @@ func (p *Point) Add(q Point) Point {
 }
 
 // SumOfShortestPaths returns the sum of the shortest paths.
-func SumOfShortestPaths(input []string) int {
+func SumOfShortestPaths(input []string, expansionFactor int) int {
 	galaxies := []Point{}
 	numRows := len(input)
 	numCols := len(input[0])
@@ -31,10 +31,11 @@ func SumOfShortestPaths(input []string) int {
 			}
 		}
 	}
+
 	rowOffsets := make([]int, numRows)
 	for i := 0; i < numRows-1; i++ {
 		if !rowsWithGalaxies[i] {
-			rowOffsets[i+1] = rowOffsets[i] + 1
+			rowOffsets[i+1] = rowOffsets[i] + expansionFactor - 1
 		} else {
 			rowOffsets[i+1] = rowOffsets[i]
 		}
@@ -43,7 +44,7 @@ func SumOfShortestPaths(input []string) int {
 	colOffsets := make([]int, numCols)
 	for i := 0; i < numCols-1; i++ {
 		if !colsWithGalaxies[i] {
-			colOffsets[i+1] = colOffsets[i] + 1
+			colOffsets[i+1] = colOffsets[i] + expansionFactor - 1
 		} else {
 			colOffsets[i+1] = colOffsets[i]
 		}

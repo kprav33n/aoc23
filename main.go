@@ -113,7 +113,11 @@ var solutions = map[string]func(){
 	},
 	"day11a": func() {
 		input := io.ReadLines("inputs/day11.txt")
-		fmt.Println(day11.SumOfShortestPaths(input))
+		fmt.Println(day11.SumOfShortestPaths(input, 2))
+	},
+	"day11b": func() {
+		input := io.ReadLines("inputs/day11.txt")
+		fmt.Println(day11.SumOfShortestPaths(input, 1000000))
 	},
 }
 
