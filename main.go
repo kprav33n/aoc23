@@ -16,6 +16,7 @@ import (
 	"github.com/kprav33n/aoc23/day10"
 	"github.com/kprav33n/aoc23/day11"
 	"github.com/kprav33n/aoc23/day12"
+	"github.com/kprav33n/aoc23/day13"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -123,6 +124,10 @@ var solutions = map[string]func(){
 	"day12a": func() {
 		input := io.ReadLines("inputs/day12.txt")
 		fmt.Println(day12.SumOfArrangements(input))
+	},
+	"day13a": func() {
+		input := io.ReadLines("inputs/day13.txt")
+		fmt.Println(day13.SummaryNumber(input))
 	},
 }
 
