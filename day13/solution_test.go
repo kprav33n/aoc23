@@ -37,7 +37,7 @@ func TestReflectionLine(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(fmt.Sprintf("case#%d", i), func(t *testing.T) {
-			row, col := test.pattern.ReflectionLine()
+			row, col := test.pattern.ReflectionLine(0)
 			if row != test.row || col != test.col {
 				t.Errorf("Expected row = %d, col = %d, got row = %d, col = %d", test.row, test.col, row, col)
 			}
@@ -65,6 +65,31 @@ func TestSummaryNumber(t *testing.T) {
 	}
 	got := day13.SummaryNumber(input)
 	want := 405
+	if got != want {
+		t.Errorf("SummaryNumber() = %d, want %d", got, want)
+	}
+}
+
+func TestSummaryNumberWithSmudges(t *testing.T) {
+	input := []string{
+		"#.##..##.",
+		"..#.##.#.",
+		"##......#",
+		"##......#",
+		"..#.##.#.",
+		"..##..##.",
+		"#.#.##.#.",
+		"",
+		"#...##..#",
+		"#....#..#",
+		"..##..###",
+		"#####.##.",
+		"#####.##.",
+		"..##..###",
+		"#....#..#",
+	}
+	got := day13.SummaryNumberWithSmudges(input)
+	want := 400
 	if got != want {
 		t.Errorf("SummaryNumber() = %d, want %d", got, want)
 	}

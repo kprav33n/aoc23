@@ -129,6 +129,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day13.txt")
 		fmt.Println(day13.SummaryNumber(input))
 	},
+	"day13b": func() {
+		input := io.ReadLines("inputs/day13.txt")
+		fmt.Println(day13.SummaryNumberWithSmudges(input))
+	},
 }
 
 func main() {

@@ -14,14 +14,14 @@ func NewPattern(input []string) *Pattern {
 	return p
 }
 
-// ReflectionLine returns the row-wise or column-wise reflection line.
-func (p *Pattern) ReflectionLine() (int, int) {
+// ReflectionLine returns the row-wise or column-wise reflection line with the
+// given tolerance.
+func (p *Pattern) ReflectionLine(tolerance int) (int, int) {
 	numRows := len(p.Values)
 	numCols := len(p.Values[0])
 
 	for i := 1; i < numRows; i++ {
-		reflection := true
-	outerRow:
+		mismatches := 0
 		for j := 0; j < i; j++ {
 			if i+j >= numRows || i-j-1 < 0 {
 				break
@@ -29,19 +29,17 @@ func (p *Pattern) ReflectionLine() (int, int) {
 
 			for k := 0; k < numCols; k++ {
 				if p.Values[i+j][k] != p.Values[i-j-1][k] {
-					reflection = false
-					break outerRow
+					mismatches++
 				}
 			}
 		}
-		if reflection {
+		if mismatches == tolerance {
 			return i, 0
 		}
 	}
 
 	for i := 1; i < numCols; i++ {
-		reflection := true
-	outerCol:
+		mismatches := 0
 		for j := 0; j < i; j++ {
 			if i+j >= numCols || i-j-1 < 0 {
 				break
@@ -49,12 +47,11 @@ func (p *Pattern) ReflectionLine() (int, int) {
 
 			for k := 0; k < numRows; k++ {
 				if p.Values[k][i+j] != p.Values[k][i-j-1] {
-					reflection = false
-					break outerCol
+					mismatches++
 				}
 			}
 		}
-		if reflection {
+		if mismatches == tolerance {
 			return 0, i
 		}
 	}
@@ -62,8 +59,7 @@ func (p *Pattern) ReflectionLine() (int, int) {
 	return 0, 0
 }
 
-// SummaryNumber returns the number after summarizing the notes.
-func SummaryNumber(input []string) int {
+func summaryNumber(input []string, tolerance int) int {
 	markers := []int{-1}
 	for i, line := range input {
 		if line == "" {
@@ -75,9 +71,19 @@ func SummaryNumber(input []string) int {
 	result := 0
 	for i := 0; i < len(markers)-1; i++ {
 		pattern := NewPattern(input[markers[i]+1 : markers[i+1]])
-		row, col := pattern.ReflectionLine()
+		row, col := pattern.ReflectionLine(tolerance)
 		result += 100 * row
 		result += col
 	}
 	return result
+}
+
+// SummaryNumber returns the number after summarizing the notes.
+func SummaryNumber(input []string) int {
+	return summaryNumber(input, 0)
+}
+
+// SummaryNumberWithSmudges returns the number after summarizing the notes.
+func SummaryNumberWithSmudges(input []string) int {
+	return summaryNumber(input, 1)
 }
