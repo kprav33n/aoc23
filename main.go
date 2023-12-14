@@ -17,6 +17,7 @@ import (
 	"github.com/kprav33n/aoc23/day11"
 	"github.com/kprav33n/aoc23/day12"
 	"github.com/kprav33n/aoc23/day13"
+	"github.com/kprav33n/aoc23/day14"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -132,6 +133,10 @@ var solutions = map[string]func(){
 	"day13b": func() {
 		input := io.ReadLines("inputs/day13.txt")
 		fmt.Println(day13.SummaryNumberWithSmudges(input))
+	},
+	"day14a": func() {
+		input := io.ReadLines("inputs/day14.txt")
+		fmt.Println(day14.TotalLoad(input))
 	},
 }
 
