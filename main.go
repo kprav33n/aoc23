@@ -18,6 +18,7 @@ import (
 	"github.com/kprav33n/aoc23/day12"
 	"github.com/kprav33n/aoc23/day13"
 	"github.com/kprav33n/aoc23/day14"
+	"github.com/kprav33n/aoc23/day15"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -137,6 +138,10 @@ var solutions = map[string]func(){
 	"day14a": func() {
 		input := io.ReadLines("inputs/day14.txt")
 		fmt.Println(day14.TotalLoad(input))
+	},
+	"day15a": func() {
+		input := io.ReadLines("inputs/day15.txt")
+		fmt.Println(day15.SumOfStepHashes(input))
 	},
 }
 
