@@ -17,6 +17,17 @@ func TestSumOfStepHashes(t *testing.T) {
 	}
 }
 
+func TestFocusingPower(t *testing.T) {
+	input := []string{
+		"rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7",
+	}
+	want := 145
+	got := day15.FocusingPower(input)
+	if got != want {
+		t.Errorf("got %d, want %d", got, want)
+	}
+}
+
 func TestHash(t *testing.T) {
 	tests := []struct {
 		step day15.Step

@@ -143,6 +143,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day15.txt")
 		fmt.Println(day15.SumOfStepHashes(input))
 	},
+	"day15b": func() {
+		input := io.ReadLines("inputs/day15.txt")
+		fmt.Println(day15.FocusingPower(input))
+	},
 }
 
 func main() {
