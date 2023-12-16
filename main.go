@@ -19,6 +19,7 @@ import (
 	"github.com/kprav33n/aoc23/day13"
 	"github.com/kprav33n/aoc23/day14"
 	"github.com/kprav33n/aoc23/day15"
+	"github.com/kprav33n/aoc23/day16"
 	"github.com/kprav33n/aoc23/io"
 )
 
@@ -146,6 +147,10 @@ var solutions = map[string]func(){
 	"day15b": func() {
 		input := io.ReadLines("inputs/day15.txt")
 		fmt.Println(day15.FocusingPower(input))
+	},
+	"day16a": func() {
+		input := io.ReadLines("inputs/day16.txt")
+		fmt.Println(day16.NumEnergizedTiles(input))
 	},
 }
 
