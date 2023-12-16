@@ -1,7 +1,6 @@
 package day12
 
 import (
-	"slices"
 	"strings"
 
 	istrconv "github.com/kprav33n/aoc23/strconv"
@@ -12,62 +11,104 @@ import (
 func SumOfArrangements(input []string) int {
 	sum := 0
 	for _, line := range input {
-		sum += NumArrangements(line)
+		sum += NumArrangementsScaled(line, 1)
 	}
 	return sum
 }
 
-// NumArrangements returns the number of arrangements of the given input.
-func NumArrangements(input string) int {
+// SumOfArrangementsX5 returns the sum of the number of arrangements of the
+// given input scaled by 5.
+func SumOfArrangementsX5(input []string) int {
+	sum := 0
+	for _, line := range input {
+		sum += NumArrangementsScaled(line, 5)
+	}
+	return sum
+}
+
+// NumArrangementsScaled returns the number of arrangements of the given input
+// scaled by the given factor.
+func NumArrangementsScaled(input string, factor int) int {
 	tokens := strings.Split(input, " ")
+	repeater := make([]string, factor)
+	for i := range repeater {
+		repeater[i] = tokens[0]
+	}
+	condition := []rune(strings.Join(repeater, "?"))
+
+	for i := range repeater {
+		repeater[i] = tokens[1]
+	}
 	criteria := make([]int, 0)
-	for _, field := range strings.Split(tokens[1], ",") {
+	for _, field := range strings.Split(strings.Join(repeater, ","), ",") {
 		criteria = append(criteria, istrconv.MustAtoi(field))
 	}
 
-	var bitmask, record uint64
-	runes := []rune(tokens[0])
-	slices.Reverse(runes)
-	length := len(runes)
-	for i, r := range runes {
-		if r == '#' || r == '.' {
-			bitmask |= 1 << i
-		}
-		if r == '.' {
-			record |= 1 << i
+	return newCache().numArrangements(condition, criteria, 0, 0, 0)
+}
+
+// cache represents a cache of triplets.
+type cache struct {
+	data map[triplet]int
+}
+
+// newCache returns a new cache.
+func newCache() *cache {
+	return &cache{make(map[triplet]int)}
+}
+
+// get returns the value for the given triplet.
+func (c *cache) get(x, y, z int) (int, bool) {
+	result, ok := c.data[triplet{x, y, z}]
+	return result, ok
+}
+
+// set sets the value for the given triplet.
+func (c *cache) set(x, y, z, value int) {
+	c.data[triplet{x, y, z}] = value
+}
+
+// numArrangements returns the number of arrangements of the given condition
+// that satisfy the given criteria.
+// Idea courtesy: https://www.youtube.com/watch?v=xTGkP2GNmbQ
+func (c *cache) numArrangements(condition []rune, criteria []int,
+	conditionOffset, criteriaOffset, groupLen int) int {
+	if value, ok := c.get(conditionOffset, criteriaOffset, groupLen); ok {
+		return value
+	}
+
+	if conditionOffset == len(condition) {
+		switch {
+		case criteriaOffset == len(criteria) && groupLen == 0:
+			return 1
+		case criteriaOffset == len(criteria)-1 && criteria[criteriaOffset] == groupLen:
+			return 1
+		default:
+			return 0
 		}
 	}
 
 	result := 0
-	for i := uint64(0); i < 1<<uint64(length); i++ {
-		if i&bitmask != record {
+	for _, ch := range []rune{'.', '#'} {
+		if condition[conditionOffset] != '?' && condition[conditionOffset] != ch {
 			continue
 		}
 
-		if slices.Equal(PatternOfZeros(i, length), criteria) {
-			result++
+		switch {
+		case ch == '.' && groupLen == 0:
+			result += c.numArrangements(condition, criteria, conditionOffset+1, criteriaOffset, 0)
+		case ch == '.' && groupLen > 0 && criteriaOffset < len(criteria) && criteria[criteriaOffset] == groupLen:
+			result += c.numArrangements(condition, criteria, conditionOffset+1, criteriaOffset+1, 0)
+		case ch == '#':
+			result += c.numArrangements(condition, criteria, conditionOffset+1, criteriaOffset, groupLen+1)
 		}
 	}
 
+	c.set(conditionOffset, criteriaOffset, groupLen, result)
 	return result
 }
 
-// PatternOfZeros returns the pattern of zeros of the given input.
-func PatternOfZeros(v uint64, l int) []int {
-	result := make([]int, 0)
-	numZeros := 0
-	for i := l - 1; i >= 0; i-- {
-		if v&(1<<uint64(i)) == 0 {
-			numZeros++
-		} else {
-			if numZeros > 0 {
-				result = append(result, numZeros)
-				numZeros = 0
-			}
-		}
-	}
-	if numZeros > 0 {
-		result = append(result, numZeros)
-	}
-	return result
+// triplet represents a triplet of integers.
+type triplet struct {
+	x, y, z int
 }

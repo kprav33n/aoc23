@@ -128,6 +128,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day12.txt")
 		fmt.Println(day12.SumOfArrangements(input))
 	},
+	"day12b": func() {
+		input := io.ReadLines("inputs/day12.txt")
+		fmt.Println(day12.SumOfArrangementsX5(input))
+	},
 	"day13a": func() {
 		input := io.ReadLines("inputs/day13.txt")
 		fmt.Println(day13.SummaryNumber(input))
