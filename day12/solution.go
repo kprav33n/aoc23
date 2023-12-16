@@ -3,7 +3,7 @@ package day12
 import (
 	"strings"
 
-	istrconv "github.com/kprav33n/aoc23/strconv"
+	"github.com/kprav33n/aoc23/strconv"
 )
 
 // SumOfArrangements returns the sum of the number of arrangements of the given
@@ -41,7 +41,7 @@ func NumArrangementsScaled(input string, factor int) int {
 	}
 	criteria := make([]int, 0)
 	for _, field := range strings.Split(strings.Join(repeater, ","), ",") {
-		criteria = append(criteria, istrconv.MustAtoi(field))
+		criteria = append(criteria, strconv.MustAtoi(field))
 	}
 
 	return newCache().numArrangements(condition, criteria, 0, 0, 0)
