@@ -25,3 +25,23 @@ func TestNumEnergizedTiles(t *testing.T) {
 		t.Errorf("NumEnergizedTiles(%v) = %d, want %d", input, got, expected)
 	}
 }
+
+func TestMaxEnergizedTiles(t *testing.T) {
+	input := []string{
+		`.|...\....`,
+		`|.-.\.....`,
+		`.....|-...`,
+		`........|.`,
+		`..........`,
+		`.........\`,
+		`..../.\\..`,
+		`.-.-/..|..`,
+		`.|....-|.\`,
+		`..//.|....`,
+	}
+	expected := 51
+	got := day16.MaxEnergizedTiles(input)
+	if got != expected {
+		t.Errorf("MaxEnergizedTiles(%v) = %d, want %d", input, got, expected)
+	}
+}

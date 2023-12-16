@@ -7,7 +7,16 @@ import (
 // NumEnergizedTiles returns the number of energized tiles.
 func NumEnergizedTiles(input []string) int {
 	c := NewContraption(input)
-	return c.NumEnergizedTiles()
+	return c.NumEnergizedTiles(Beam{
+		Position:  geometry.Point{X: 0, Y: 0},
+		Direction: Right,
+	})
+}
+
+// MaxEnergizedTiles returns the maximum number of energized tiles.
+func MaxEnergizedTiles(input []string) int {
+	c := NewContraption(input)
+	return c.MaxEnergizedTiles()
 }
 
 // Directions for moving around the contraption.
@@ -109,15 +118,10 @@ func (c *Contraption) NextBeams(b Beam) []Beam {
 }
 
 // NumEnergizedTiles returns the number of energized tiles in the contraption.
-func (c *Contraption) NumEnergizedTiles() int {
+func (c *Contraption) NumEnergizedTiles(start Beam) int {
 	energizedTiles := make(map[geometry.Point]bool)
 	seenBeams := make(map[Beam]bool)
-
-	startBeam := Beam{
-		Position:  geometry.Point{X: 0, Y: 0},
-		Direction: Right,
-	}
-	beams := []Beam{startBeam}
+	beams := []Beam{start}
 
 	for len(beams) > 0 {
 		var nextBeams []Beam
@@ -134,4 +138,39 @@ func (c *Contraption) NumEnergizedTiles() int {
 	}
 
 	return len(energizedTiles)
+}
+
+// MaxEnergizedTiles returns the maximum number of energized tiles in the contraption.
+func (c *Contraption) MaxEnergizedTiles() int {
+	result := 0
+	attemptStart := func(start Beam) {
+		n := c.NumEnergizedTiles(start)
+		if n > result {
+			result = n
+		}
+	}
+
+	for i := 0; i < c.NumRows; i++ {
+		attemptStart(Beam{
+			Position:  geometry.Point{X: 0, Y: i},
+			Direction: Right,
+		})
+		attemptStart(Beam{
+			Position:  geometry.Point{X: c.NumCols - 1, Y: i},
+			Direction: Left,
+		})
+	}
+
+	for i := 0; i < c.NumCols; i++ {
+		attemptStart(Beam{
+			Position:  geometry.Point{X: i, Y: 0},
+			Direction: Down,
+		})
+		attemptStart(Beam{
+			Position:  geometry.Point{X: i, Y: c.NumRows - 1},
+			Direction: Up,
+		})
+	}
+
+	return result
 }

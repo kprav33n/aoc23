@@ -152,6 +152,10 @@ var solutions = map[string]func(){
 		input := io.ReadLines("inputs/day16.txt")
 		fmt.Println(day16.NumEnergizedTiles(input))
 	},
+	"day16b": func() {
+		input := io.ReadLines("inputs/day16.txt")
+		fmt.Println(day16.MaxEnergizedTiles(input))
+	},
 }
 
 func main() {
